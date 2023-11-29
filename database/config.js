@@ -10,3 +10,7 @@ const dbConnection = async () => {
         throw new Error ("Error de conexión con la base de datos")
     }
 }
+
+module.exports = {
+    dbConnection
+}
