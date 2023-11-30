@@ -5,14 +5,18 @@ const bcrypt = require ("bcryptjs");
 const {request, response} = require ("express");
 
 //GET
-const usuariosGet = (req = request, res) => {
+const usuariosGet = async (req, res) => {
     //CONSULTA DE LIMIT Y PAGE
-    const {limit, page} = req.query
+    const {limite=5, desde=0} = req.query;
 
-    res.json({
-        message: "GET usuarios - Controllers",
-        limit,
-        page, 
+    //CUANDO HAY VARIAS CONSULTAS
+    const [total, usuarios]=await Promise.all([
+        Usuario.countDocuments({state : true}),
+        Usuario.find({state : true}).limit(limite).skip(desde)]);
+
+    res.status(200).json({
+        total,
+        usuarios,
     })};
 
 //POST
@@ -51,9 +55,15 @@ const usuarioPut = async (req, res) => {
     })};
 
 //DELETE    
-const usuarioDelete = (req, res) => {
-    res.json({
-        message: "DELETE usuario - Controllers",
+const usuarioDelete = async (req, res) => {
+    const {id} = req.params;
+
+    //INACTIVAR
+    const usuarioBorrado = await Usuario.findByIdAndUpdate(id,{state : false},{new : true});
+
+    res.status(200).json({
+        message: "Usuario eliminado",
+        usuarioBorrado
     });
 };
 
