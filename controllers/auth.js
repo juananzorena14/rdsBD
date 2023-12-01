@@ -19,7 +19,7 @@ const login = async (req = request, res = response) => {
                 msg: "Usuario suspendido"})};
 
         //VERIFICAR SI LA PASSWORD ES LA CORRECTA
-        const validarPassword = bcryptjs.compareSync(password.usuario.password)
+        const validarPassword = bcryptjs.compareSync(password, usuario.password)
         if (!validarPassword){
             return res.status(400).json({
                 msg: "Contraseña incorrecta"})};
