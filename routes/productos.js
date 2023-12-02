@@ -3,7 +3,7 @@ const {check} = require("express-validator");
 const {productoExiste, existeProductoPorId, productoNoExiste} = require("../helpers/db-validators");
 const {validarCampos} = require("../middlewares/validar-campos");
 const {validarJWT} = require("../middlewares/validar-jwt");
-const {esAdmin} = require("../middlewares/validar-role");
+const {esAdmin} = require("../middlewares/validar-rol");
 const {productoGet, productosGet, productoPost, productoPut, productoDelete} = require("../controllers/productos");
 
 const router = Router();
@@ -28,7 +28,7 @@ router.post(
     check ("img", "Necesitas una imagen para mostrar la categoria").notEmpty(),
     check ("description", "El cliente no va a saber que ingredientes tiene el plato").notEmpty(),
     check ("price", "Cuanto cuesta?").notEmpty(),
-    check("categoria", "La categoría es obligatoria").notEmpty(),
+    //check("categoria", "La categoría es obligatoria").notEmpty(),
     validarCampos,
     ],productoPost
 );

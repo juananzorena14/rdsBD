@@ -42,17 +42,17 @@ const existeCategoriaPorId = async (id) => {
         throw new Error ("La categoria ya está dada de baja")};
     };        
 
-//PRODUCTO/POST : VALIDAR SI NO EXISTE EL PRODUCTO 
+//PRODUCTO/GET :  VALIDAR SI NO EXISTE PRODUCTO BUSCADO
 const productoNoExiste = async (name) => { 
     const ExisteProducto = await Producto.findOne ({name})
-    if (ExisteProducto) {
-        throw new Error ("Ese producto ya existe")}};  
+    if (!ExisteProducto) {
+        throw new Error ("Ese producto no existe")}};  
 
-//PRODUCTO/GET : VALIDAR SI NO EXISTE PRODUCTO BUSCADO
+//PRODUCTO/POST : VALIDAR SI EL PRODUCTO YA EXISTE
 const productoExiste = async (name) => { 
     const noExisteProducto = await Producto.findOne ({name})
-    if (!noExisteProducto) {
-        throw new Error ("Ese producto no existe")}}; 
+    if (noExisteProducto) {
+        throw new Error ("Ese producto ya existe")}}; 
         
 //PRODUCTO/PUT Y DELETE : PAGINA ADMIN USANDO ID
 const existeProductoPorId = async (id) => { 
@@ -62,7 +62,7 @@ const existeProductoPorId = async (id) => {
 
 //PRODUCTO/DELETE : VALIDAR CATEGORIA ELIMINADA
     if (!existeProductoId.state) {
-        throw new Error ("El producto ya está dada de baja")};
+        throw new Error ("El producto ya está dado de baja")};
     };        
 
         

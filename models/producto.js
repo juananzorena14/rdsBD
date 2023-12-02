@@ -21,13 +21,16 @@ const ProductoSchema = Schema ({
     categoria: {
         type: Schema.Types.ObjectId,
         ref: "Categoria",
-        required: true
     },
     usuario: {
         type: Schema.Types.ObjectId,
         ref: "Usuario",
         required: true
     },
+    state: {
+        type: Boolean,
+        default: true
+    }
 });
 
 module.exports = model ("Producto", ProductoSchema);

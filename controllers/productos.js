@@ -10,11 +10,12 @@ const productosGet = async (req, res) => {
         .populate("usuario","name email")
         .populate("categoria","name")
     ]);
-}
-    res.status(200).json ({
+
+    res.json ({
         total,
         productos
     });
+};
 
 const productoGet = async (req, res) => {
     const {name} = req.params;
@@ -33,7 +34,7 @@ const productoPost = async (req, res) => {
 
     const productoDB = await Producto.findOne({ name });
     
-    //SI LA CATEGORIA EXISTE
+    //SI EL PRODUCTO EXISTE
     if (productoDB) {
         return res.status(400).json({
             msg: `El producto ${productoDB.name} ya existe`,
