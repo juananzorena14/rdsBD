@@ -4,13 +4,15 @@ const { usuariosGet, usuarioPost, usuarioPut, usuarioDelete } = require("../cont
 const { validarCampos } = require("../middlewares/validar-campos");
 const { emailExiste, existeUsuarioPorId} = require("../helpers/db-validators");
 const { validarJWT } = require("../middlewares/validar-jwt");
+const { esAdmin } = require ("../middlewares/validar-rol");
 
 const router = Router ();
 
 //GET
 router.get
     ("/",
-    [validarJWT], 
+    [validarJWT,
+    esAdmin], 
     usuariosGet);
 
 //POST
@@ -36,6 +38,7 @@ router.put
 router.delete
     ("/:id",
     [validarJWT,
+    esAdmin,
     check ("id", "No es un ID válido").isMongoId(),
     check ("id").custom(existeUsuarioPorId),
     //check ("state").custom(existeUsuarioPorState),

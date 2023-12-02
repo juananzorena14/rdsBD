@@ -26,8 +26,6 @@ const usuarioPost = async (req, res) => {
     //CREAR UN USUARIO Y GUARDARLO
     const usuario = new Usuario ({name, email, password, address});
 
-   
-
     const salt = bcrypt.genSaltSync(10);
     usuario.password = bcrypt.hashSync (password, salt);
 

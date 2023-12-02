@@ -5,8 +5,8 @@ const categoriasGet = async (req, res) => {
     const consulta = {state : true};
 
     const [categorias, total] = await Promise.all ([
-        Categoria.find(consulta),
-        Categoria.countDocuments(consulta).skip(desde).limit(limite).populate("usuario","name email"),
+        Categoria.countDocuments(consulta),
+        Categoria.find(consulta).skip(desde).limit(limite).populate("usuario","name email")
     ]);
 
     res.status(200).json ({
@@ -26,17 +26,19 @@ const categoriaGet = async (req, res) => {
 
 const categoriaPost = async (req, res) => {
     const name = req.body.name.toUpperCase();
-    const categoriaNueva = await Categoria.findOne ({name});
-
-    if (categoriaNueva) {
+    const img = req.body.img;
+    const categoriaDB = await Categoria.findOne({ name });
+    
+    //SI LA CATEGORIA EXISTE
+    if (categoriaDB) {
         return res.status(400).json({
-            msg: `La categoria ${categoriaNueva.name} ya existe`,
+            msg: `La categoria ${categoriaDB.name} ya existe`,
         });
     }
-
     const data = {
-        nombre,
-        usuario: req.usuario._id,
+        name,
+        img,
+        usuario: req.usuario._id
     };
 
     const categoria = new Categoria (data);
