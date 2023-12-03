@@ -1,16 +1,18 @@
 const Categoria = require ("../models/categoria");
+const { request, response } = require("express");
 
-const categoriasGet = async (req, res) => {
-    const {desde = 0} = req.query;
+const categoriasGet = async (req = request, res = response) => {
+    const {desde = 0, limite = 20} = req.query;
     const consulta = {state : true};
 
-    const [categorias] = await Promise.all ([
+    const [total, categorias] = await Promise.all ([
         Categoria.countDocuments(consulta),
-        Categoria.find(consulta).skip(desde).populate("usuario","name email")
+        Categoria.find(consulta).skip(desde).limit(limite).populate("usuario","name email")
     ]);
 
     res.status(200).json ({
-        categorias
+        total,
+        categorias,
     });
 };
 
