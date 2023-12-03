@@ -30,7 +30,6 @@ const login = async (req = request, res = response) => {
         res.status(200).json({
             usuario,
             token,
-            role
         });
         
     } catch (error) {

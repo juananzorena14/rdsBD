@@ -12,7 +12,7 @@ const categoriasGet = async (req = request, res = response) => {
 
     res.status(200).json ({
         total,
-        categorias,
+        categorias
     });
 };
 
