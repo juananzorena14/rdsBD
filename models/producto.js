@@ -19,8 +19,9 @@ const ProductoSchema = Schema ({
         required: [true, "La imagen es obligatoria"]
     },
     categoria: {
-        type: String,
-        required: [true, "La categoria es obligatoria"]
+        type: Schema.Types.ObjectId,
+        ref: "Categoria",
+        required: true
     },
     usuario: {
         type: Schema.Types.ObjectId,
