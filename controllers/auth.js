@@ -36,10 +36,20 @@ const login = async (req = request, res = response) => {
         console.log(error)
         res.status(500).json({
             msg: "Comuníquese con el administrador"
-        })
-    }
-}
+        });
+    };
+};
+
+const obtenerID = (req, res) => {
+    const {id, role} = req.usuario;
+
+    res.json({
+        id,
+        role
+    });
+};
 
 module.exports = {
     login,
+    obtenerID,
 }

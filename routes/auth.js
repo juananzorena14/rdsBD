@@ -1,9 +1,11 @@
 const {Router} = require ("express");
 const {check} = require ("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos");
-
-const {login} = require ("../controllers/auth");
+const {validarJWT} = require ("../middlewares/validar-jwt");
+const {login, obtenerID} = require ("../controllers/auth");
 const router = Router ();
+
+router.get("/", [validarJWT], obtenerID)
 
 router.post("/login",
     [check ("email", "El correo es obligatorio").notEmpty(),
