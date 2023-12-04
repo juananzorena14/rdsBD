@@ -1,9 +1,6 @@
 const Usuario = require ("../models/usuario");
 const bcrypt = require ("bcryptjs");
 
-//ACCESO A LOS MÉTODOS
-const {request, response} = require ("express");
-
 //GET
 const usuariosGet = async (req, res) => {
     //CONSULTA DE LIMIT Y PAGE
@@ -21,10 +18,10 @@ const usuariosGet = async (req, res) => {
 
 //POST
 const usuarioPost = async (req, res) => {
-    const {name, email, password, address} = req.body;
+    const {name, email, password, address, role} = req.body;
 
     //CREAR UN USUARIO Y GUARDARLO
-    const usuario = new Usuario ({name, email, password, address});
+    const usuario = new Usuario ({name, email, password, address, role});
 
     const salt = bcrypt.genSaltSync(10);
     usuario.password = bcrypt.hashSync (password, salt);

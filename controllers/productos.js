@@ -8,7 +8,6 @@ const productosGet = async (req, res) => {
         Producto.countDocuments(consulta),
         Producto.find(consulta).skip(desde).limit(limite)
         .populate("usuario","name email")
-        .populate("categoria","name")
     ]);
 
     res.json ({
@@ -29,7 +28,7 @@ const productoGet = async (req, res) => {
 };
 
 const productoPost = async (req, res) => {
-    const {price, description, img} = req.body;
+    const {price, description, img, categoria} = req.body;
     const name = req.body.name.toUpperCase();
 
     const productoDB = await Producto.findOne({ name });
@@ -45,6 +44,7 @@ const productoPost = async (req, res) => {
         price,
         description,
         img,
+        categoria,
         usuario: req.usuario._id
     };
 
