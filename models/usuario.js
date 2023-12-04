@@ -20,7 +20,6 @@ const UsuarioSchema = Schema ({
     },
     role: {
         type: String,
-        enum: ["ADMIN","USER"],
         default: "USER"
     },
     state: {
