@@ -26,11 +26,13 @@ const login = async (req = request, res = response) => {
 
         //GENERAR TOKEN
         const token = await generarJWT(usuario.id);
-
+        const role = usuario.role
+        
         res.status(200).json({
             usuario,
             token,
-        });
+            role
+            });
         
     } catch (error) {
         console.log(error)
